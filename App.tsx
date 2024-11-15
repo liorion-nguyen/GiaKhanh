@@ -8,6 +8,7 @@ export default function App() {
       <Text>Chung</Text>
       <Text>Hello World</Text>
       <Text>Chung</Text>
+      <Text>Auth</Text>
     </View>
   );
 }
