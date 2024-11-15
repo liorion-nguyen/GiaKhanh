@@ -11,6 +11,12 @@ export default function App() {
       <Text>Auth</Text>
       <Text>Gia Khanh</Text>
       <Text>Quoc Chung</Text>
+      {/* 
+      Bắt đầu code: pull code
+      ... 
+      n*commit 
+      Sau khi code xong: pull code về và sau đó push code lên.
+      */}
     </View>
   );
 }
