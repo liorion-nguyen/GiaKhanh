@@ -9,6 +9,7 @@ export default function App() {
       <Text>Hello World</Text>
       <Text>Chung</Text>
       <Text>Auth</Text>
+      <Text>Gia Khanh</Text>
     </View>
   );
 }
