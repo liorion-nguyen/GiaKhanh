@@ -10,6 +10,7 @@ export default function App() {
       <Text>Chung</Text>
       <Text>Auth</Text>
       <Text>Gia Khanh</Text>
+      <Text>Quoc Chung</Text>
     </View>
   );
 }
