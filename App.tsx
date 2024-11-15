@@ -6,6 +6,8 @@ export default function App() {
     <View style={styles.container}>
       <Text>Hello World</Text>
       <Text>Chung</Text>
+      <Text>Hello World</Text>
+      <Text>Chung</Text>
     </View>
   );
 }
