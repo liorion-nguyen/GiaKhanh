@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Login() {
@@ -18,6 +18,15 @@ export default function Login() {
     const handleSignUp = () => {
         navigation.navigate('SignUp');
     }
+    // useEffect(() => {
+    //     navigation.setOptions({
+    //         title: email
+    //     });
+    // }, [navigation, email]);
+    // nếu không có tham số truỳen vào trong [] thì sẽ chạy 1 lần khi component được render lần đầu.
+    // nếu có tham số truỳen vào trong [] thì sẽ chạy lần đầu khi component được render lần đầu và khi tham số thay đổi giá trị.
+
+
     return <View style={styles.container}>
         <Text style={styles.title}>Form Login</Text>
         <TextInput placeholder="Email" style={styles.input} value={email} onChangeText={setEmail} />

@@ -4,7 +4,7 @@ import { StackParams } from "../navigations/config";
 
 export default function Home() {
     const navigation = useNavigation<any>();
-    const { user } = useRoute().params as StackParams['Home'];
+    // const { user } = useRoute().params as StackParams['Home'];
 
     const handleLogout = () => {
         navigation.goBack();
@@ -12,9 +12,9 @@ export default function Home() {
     return <View style={styles.container}>
         <Text style={styles.title}>Home</Text>
         <Text style={styles.welcome}>Welcome to the app</Text>
-        <Text style={styles.welcome}>{user.fullName}</Text>
+        {/* <Text style={styles.welcome}>{user.fullName}</Text>
         <Text style={styles.welcome}>{user.email}</Text>
-        <Text style={styles.welcome}>{user.password}</Text>
+        <Text style={styles.welcome}>{user.password}</Text> */}
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
             <Text>Logout</Text>
         </TouchableOpacity>
