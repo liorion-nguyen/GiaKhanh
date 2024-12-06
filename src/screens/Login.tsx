@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Input from "../components/commons/input";
 import Button from "../components/commons/button";
+import { users } from "../data/user";
 
 export default function Login() {
     const navigation = useNavigation<any>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const dataUsers = users;
     const handleLogin = () => {
         // Check valid email and password: email: abc@xyz.com, password: 123456@
         if (!email || !password) {
@@ -28,14 +30,15 @@ export default function Login() {
             Alert.alert('Error', 'Password must contain at least 1 uppercase letter, 1 number, and 1 special character');
             return;
         }
-        // Next step Login.
-        const newUser = {
-            fullName: 'John Doe',
-            email: email,
-            password: password
+
+        for (let i = 0; i < dataUsers.length; i++) {
+            if (dataUsers[i].email == email && dataUsers[i].password == password) {
+                Alert.alert('Success', 'Login successfully');
+                navigation.navigate('Home', { user: dataUsers[i] });
+                return;
+            }
         }
-        Alert.alert('Success', 'Login successfully');
-        navigation.navigate('Home', { user: newUser });
+        Alert.alert('Error', 'Email or password is incorrect');
     }
     const handleSignUp = () => {
         navigation.navigate('SignUp');

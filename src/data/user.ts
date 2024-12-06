@@ -13,7 +13,7 @@ export const users = [
     {
         email: 'chung@gmail.com',
         fullName: 'Nguyen Quoc Chung',
-        password: 'chung123',
+        password: 'Chung123@',
         gender: 'male',
         age: 20,
         address: '123 Main St, Anytown, USA',
