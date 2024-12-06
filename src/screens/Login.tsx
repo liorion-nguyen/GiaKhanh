@@ -1,15 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import Input from "../components/commons/input";
 import Button from "../components/commons/button";
-import { users } from "../data/user";
+import axios from "axios";
+// import { users } from "../data/user";
 
 export default function Login() {
     const navigation = useNavigation<any>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const dataUsers = users;
+
     const handleLogin = () => {
         // Check valid email and password: email: abc@xyz.com, password: 123456@
         if (!email || !password) {
@@ -31,14 +32,24 @@ export default function Login() {
             return;
         }
 
-        for (let i = 0; i < dataUsers.length; i++) {
-            if (dataUsers[i].email == email && dataUsers[i].password == password) {
+        axios.post('https://medi-manager-be.vercel.app/auth/login', {
+            username: "phamthichinh",
+            password: "10012003"
+        })
+        .then(res => {
+            if (res.status < 400) {
                 Alert.alert('Success', 'Login successfully');
-                navigation.navigate('Home', { user: dataUsers[i] });
-                return;
+                console.log(res.data);
+                
+                navigation.navigate('Home', { user: res.data });
+            } else {
+                Alert.alert('Error', 'Email or password is incorrect');
             }
-        }
-        Alert.alert('Error', 'Email or password is incorrect');
+        })
+        .catch(err => {
+            Alert.alert('Error', 'Email or password is incorrect');
+        })
+        
     }
     const handleSignUp = () => {
         navigation.navigate('SignUp');

@@ -1,10 +1,8 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { StackParams } from "../navigations/config";
 
 export default function Home() {
     const navigation = useNavigation<any>();
-    // const { user } = useRoute().params as StackParams['Home'];
 
     const handleLogout = () => {
         navigation.goBack();
