@@ -38,3 +38,6 @@ export default function TabNavigation() {
         </Tab.Navigator>
     );
 }
+
+// Stack navigation | Login, Sign Up, Home
+// Trong screen Home có Bottom Tab Navigation | Home, Search, Profile

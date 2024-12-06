@@ -1,18 +1,40 @@
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import Input from "../components/commons/input";
+import Button from "../components/commons/button";
 
 export default function Login() {
     const navigation = useNavigation<any>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const handleLogin = () => {
-        // Check valid email and password
+        // Check valid email and password: email: abc@xyz.com, password: 123456@
+        if (!email || !password) {
+            Alert.alert('Error', 'Email and password are required');
+            return; // Dừng chạy hàm
+        }
+        if (!email.includes('@')) {
+            Alert.alert('Error', 'Email is invalid');
+            return;
+        }
+        if (password.length < 6) {
+            Alert.alert('Error', 'Password must be at least 6 characters');
+            return;
+        }
+        // password không chứa kí tự đặc biệt ngoại trừ @ 
+        // Phải có ít nhất 1 kí tự viết hoa, phải chứa cả số và chữ và kí tự đặc biệt.
+        if (!/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[!@#$%^&*]/.test(password)) {
+            Alert.alert('Error', 'Password must contain at least 1 uppercase letter, 1 number, and 1 special character');
+            return;
+        }
+        // Next step Login.
         const newUser = {
             fullName: 'John Doe',
             email: email,
             password: password
         }
+        Alert.alert('Success', 'Login successfully');
         navigation.navigate('Home', { user: newUser });
     }
     const handleSignUp = () => {
@@ -29,14 +51,10 @@ export default function Login() {
 
     return <View style={styles.container}>
         <Text style={styles.title}>Form Login</Text>
-        <TextInput placeholder="Email" style={styles.input} value={email} onChangeText={setEmail} />
-        <TextInput placeholder="Password" style={styles.input} value={password} onChangeText={setPassword} />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-            <Text>Sign Up</Text>
-        </TouchableOpacity>
+        <Input value={email} onChangeText={setEmail} placeholder="Enter your email" secureTextEntry={false} />
+        <Input value={password} onChangeText={setPassword} placeholder="Enter your password" secureTextEntry={true} />
+        <Button title="Login" onPress={handleLogin} />
+        <Button title="Sign Up" onPress={handleSignUp} />
     </View>
 }
 
@@ -50,14 +68,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-    },
-    input: {
-        width: 300,
-        height: 40,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 5,
-        paddingLeft: 10
     },
     button: {
         width: 300,
