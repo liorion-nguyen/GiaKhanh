@@ -1,21 +1,54 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+type User = {
+    fullName: string;
+    email: string;
+    username: string;
+}
 
 export default function Home() {
+    const [loading, setLoading] = useState(true);
     const navigation = useNavigation<any>();
-
+    const [users, setUsers] = useState<User[]>([]);
     const handleLogout = () => {
         navigation.goBack();
     }
+    useEffect(() => {
+        const fetchUsers = async () => {
+            await axios.get('https://medi-manager-be.vercel.app/users')
+                .then(res => {
+                    setUsers(res.data.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            setLoading(false);
+        }
+        fetchUsers();
+    }, []);
     return <View style={styles.container}>
         <Text style={styles.title}>Home</Text>
         <Text style={styles.welcome}>Welcome to the app</Text>
-        {/* <Text style={styles.welcome}>{user.fullName}</Text>
-        <Text style={styles.welcome}>{user.email}</Text>
-        <Text style={styles.welcome}>{user.password}</Text> */}
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
             <Text>Logout</Text>
         </TouchableOpacity>
+        {
+            loading ? <Text>Loading...</Text> :
+                <ScrollView style={styles.scrollView}>
+                    {
+                        users.map((user: User) => (
+                            <View style={styles.boxUser}>
+                                <Text>{user.fullName}</Text>
+                                <Text>{user.email ? user.email : "Khong co email"}</Text>
+                                <Text>{user.username}</Text>
+                            </View>
+                        ))
+                    }
+                </ScrollView>
+        }
     </View>
 }
 
@@ -42,4 +75,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    boxUser: {
+        width: 300,
+        padding: 10,
+        backgroundColor: 'blue',
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10
+    },
+    scrollView: {
+        width: 300,
+        height: 300,
+    }
 });

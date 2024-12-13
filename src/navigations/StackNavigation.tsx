@@ -18,6 +18,13 @@ const StackNavigator = () => {
             }}
         >
             <Stack.Screen
+                name="Home"
+                component={HomeTab}
+                options={{
+                    title: "Trang chủ"
+                }}
+            />
+            <Stack.Screen
                 name="Login"
                 component={Login}
                 options={{
@@ -32,13 +39,6 @@ const StackNavigator = () => {
                 component={SignUp}
                 options={{
                     title: "Đăng ký"
-                }}
-            />
-            <Stack.Screen
-                name="Home"
-                component={HomeTab}
-                options={{
-                    title: "Trang chủ"
                 }}
             />
         </Stack.Navigator>
