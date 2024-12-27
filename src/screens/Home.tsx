@@ -2,6 +2,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 
 type User = {
     fullName: string;
@@ -13,8 +14,12 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation<any>();
     const [users, setUsers] = useState<User[]>([]);
+    const { user } = useSelector((state: any) => state.user); // Get value state
+    console.log("User: ", user);
+    
     const handleLogout = () => {
-        navigation.goBack();
+        // navigation.goBack();
+        navigation.navigate('Login');
     }
     useEffect(() => {
         const fetchUsers = async () => {

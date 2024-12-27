@@ -4,12 +4,15 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import Input from "../components/commons/input";
 import Button from "../components/commons/button";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/slices/user";
 // import { users } from "../data/user";
 
 export default function Login() {
     const navigation = useNavigation<any>();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
         // Check valid email and password: email: abc@xyz.com, password: 123456@
@@ -33,9 +36,9 @@ export default function Login() {
             password: password
         })
             .then(res => {
-                console.log(res.data);
                 Alert.alert(res.data.status < 400 ? 'Success' : 'Error', res.data.description);
                 if (res.data.status < 400) {
+                    dispatch(setUser(res.data.data)); // Handle Update Value State.
                     navigation.navigate('Home');
                 }
             })
