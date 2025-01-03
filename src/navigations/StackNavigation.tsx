@@ -4,6 +4,8 @@ import Login from '../screens/Login';
 import Home from '../screens/Home';
 import SignUp from '../screens/SignUp';
 import HomeTab from '../screens/HomeTab';
+import DetailUser from '../components/home/detailUser';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +41,14 @@ const StackNavigator = () => {
                 component={SignUp}
                 options={{
                     title: "Đăng ký"
+                }}
+            />
+            <Stack.Screen
+                name="DetailUser"
+                component={DetailUser}
+                options={{
+                    title: "Thông tin người dùng",
+                    headerShown: true,
                 }}
             />
         </Stack.Navigator>

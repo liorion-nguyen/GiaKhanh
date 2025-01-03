@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import ItemUser from "../components/home/listUser";
 import ListUser from "../components/home/listUser";
 import { setUsers } from "../redux/slices/user";
 
@@ -14,9 +13,8 @@ type User = {
 }
 
 export default function Home() {
-    const [loading, setLoading] = useState(true);
     const navigation = useNavigation<any>();
-    const { users } = useSelector((state: any) => state.user);
+    const { user, users } = useSelector((state: any) => state.user);
     const dispatch = useDispatch();
     const handleLogout = () => {
         navigation.navigate('Login');
@@ -29,10 +27,12 @@ export default function Home() {
             .catch(err => {
                 console.log(err);
             });
-        setLoading(false);
     }
 
     useEffect(() => {
+        if (!user) {
+            navigation.navigate("Login")
+        }
         if (users.length < 1) {
             fetchUsers();
         }
@@ -43,12 +43,7 @@ export default function Home() {
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
             <Text>Logout</Text>
         </TouchableOpacity>
-        {
-            loading ? <Text>Loading...</Text> :
-                <ScrollView style={styles.scrollView}>
-                    <ListUser />
-                </ScrollView>
-        }
+        <ListUser />
     </View>
 }
 
@@ -75,8 +70,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    scrollView: {
-        width: 300,
-        height: 300,
-    }
 });
