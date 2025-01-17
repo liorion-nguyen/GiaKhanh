@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Switch, Text, View } from "react-native";
 import Input from "../components/commons/input";
 import Button from "../components/commons/button";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/slices/user";
+import { Box } from "native-base";
 // import { users } from "../data/user";
 
 export default function Login() {
@@ -62,6 +63,12 @@ export default function Login() {
         <Text style={styles.title}>Form Login</Text>
         <Input value={username} onChangeText={setUsername} placeholder="Enter your username" secureTextEntry={false} />
         <Input value={password} onChangeText={setPassword} placeholder="Enter your password" secureTextEntry={true} />
+        <Box w="100%">
+            <Text>
+                Hello
+            </Text>
+        </Box>
+        <Switch />
         <Button title="Login" onPress={handleLogin} />
         <Button title="Sign Up" onPress={handleSignUp} />
     </View>

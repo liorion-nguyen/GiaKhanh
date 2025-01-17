@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { useDispatch, useSelector } from "react-redux";
 import ListUser from "../components/home/listUser";
 import { setUsers } from "../redux/slices/user";
+import DatePicker from 'react-native-date-picker';
 
 type User = {
     fullName: string;
